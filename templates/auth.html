@@ -1,0 +1,65 @@
+<div class="auth-overlay hidden">
+  <div class="login-container">
+    <div class="login-header">
+      <div class="login-header-content">
+        <button class="cart-close-button button button-light"><span></span><span></span></button>
+        <h3 class="cart-title">Авторизация</h3>
+      </div>
+
+      <div class="login-form">
+        <form method="post" action="/login">
+          {% csrf_token %}
+          <div class="login-form-item">
+            <label for="login-username">Имя пользователя</label>
+            <input autocomplete="off" enterkeyhint="next" class="form-input" name="username" id="login-username" type="text">
+          </div>
+
+          <div class="login-form-item">
+            <label for="login-password">Пароль</label>
+            <input autocomplete="on" class="form-input" name="password" id="login-password" type="password">
+          </div>
+          <button type="submit" class="login-form-button button button-full button-light">Авторизоваться</button>
+        </form>
+
+        <button type="submit" class="to-signup-button button button-full button-light">Регистрация</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="signup-container hidden">
+    <div class="login-header">
+      <div class="login-header-content">
+        <button class="cart-close-button button button-light"><span></span><span></span></button>
+        <h3 class="cart-title">Регистрация</h3>
+      </div>
+
+      <div class="login-form">
+        <form method="post" action="/signup">
+          {% csrf_token %}
+          <div class="login-form-item">
+            <label for="signup-username">Имя пользователя</label>
+            <input autocomplete="off" enterkeyhint="next" class="form-input" name="username" id="signup-username" type="text">
+          </div>
+
+          <div class="login-form-item">
+            <label for="signup-email">Почта</label>
+            <input autocomplete="on" enterkeyhint="next" class="form-input" name="email" id="signup-email" type="text">
+          </div>
+
+          <div class="login-form-item">
+            <label for="signup-password">Пароль</label>
+            <input autocomplete="off" class="form-input" name="password" id="signup-password" type="password">
+          </div>
+
+          <div class="login-form-item">
+            <label for="signup-confirm-password">Пароль</label>
+            <input autocomplete="off" class="form-input" id="signup-confirm-password" type="password">
+          </div>
+          <button type="submit" class="login-form-button button button-full button-light">Зарегистрироваться</button>
+        </form>
+
+        <button type="submit" class="to-login-button button button-full button-light">Назад</button>
+      </div>
+    </div>
+  </div>
+</div>

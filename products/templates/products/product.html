@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'products/style.css' %}">
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'products/script.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+  CHICX - {{ product.title }}
+{% endblock %}
+
+{% block content %}
+  <div data-in-animation="jump-in" data-stagger="50" class="container">
+    <div data-id="{{ product.id }}" class="product-view-wrapper">
+      <div data-animate class="product-view-image-container">
+        <img class="product-view-image" src="{{ product.image_preview.url }}" alt="{{ product.title }}">
+      </div>
+
+      <div class="product-view-info">
+        <div class="product-view-info-header">
+          <h1 data-animate>{{ product.title }}</h1>
+          <p data-animate>{{ product.description }}</p>
+        </div>
+
+        <div class="product-view-price">
+          <span class="product-view-price-value" data-animate>{{ product.price }} ₽</span>
+          <button data-animate class="product-view-cart-button button button-light">Добавить в корзину</button>
+        </div>
+
+        <p data-animate class="product-view-category-title">В коллекциях</p>
+        <div data-animate class="product-view-info-collections">
+          {% for collection in product.collections.all %}
+            <div class="product-collection">
+              <div class="product-collection-header">
+                <img src="{{ collection.icon.url }}" alt="">
+                <a href="/collections/{{ collection.slug }}">/ {{ collection.title }}</a>
+              </div>
+              <p class="product-collection-description">{{ collection.description }}</p>
+            </div>
+          {% endfor %}
+        </div>
+
+        <p data-animate class="product-view-category-title">Категории</p>
+        <div data-animate class="product-view-info-categories">
+          {% for category in product.categories.all %}
+            <div class="product-category">
+              {{ category.title }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {% for collection in product.collections.all|slice:"3" %}
+    <div class="collection-wrapper wrapper">
+
+      <div class="collection-header">
+        <div class="collection-icon-title" data-animate>
+          <img class="collection-icon" draggable="false" src="{{ collection.icon.url }}" alt="{{ collection.title }}">
+          <a class="collection-link" href="/collections/{{ collection.slug }}">/ {{ collection.title }}</a>
+        </div>
+        <p class="collection-description" data-animate>{{ collection.description }}</p>
+      </div>
+
+      <div class="product-card-list">
+        {% for product_in_collection in collection.products.all|slice:"6" %}
+          {% if product_in_collection.id != product.id %}
+            <div class="product-card" data-id="{{ product_in_collection.id }}" data-animate>
+            <div class="product-image-container">
+              <img class="product-image" loading="lazy" src="{{ product_in_collection.image_preview.url }}" alt="{{ product_in_collection.title }}">
+              <button tabindex="0" class="product-card-button button button-light button-full">В корзину</button>
+            </div>
+
+            <a class="product-link" href="/products/{{ product_in_collection.id }}">{{ product_in_collection.title }}</a>
+            <span class="product-description truncate">{{ product_in_collection.description }}</span>
+            <span class="product-price">{{ product_in_collection.price }} ₽</span>
+          </div>
+          {% endif %}
+        {% endfor %}
+
+        {% if collection.products.all|length > 6 %}
+          <div class="product-card" data-animate>
+            <a class="view-mode-card" href="/collections/{{ collection.id }}">
+              Посмотреть все
+            </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock %}

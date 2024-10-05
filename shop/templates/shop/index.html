@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'shop/style.css'%}">
+{% endblock %}
+
+{% block content %}
+  <div class="collection-container container" data-in-animation="jump-in" data-stagger="50">
+  {% for collection in collections %}
+    <div class="collection-wrapper wrapper">
+      <div class="collection-header">
+        <div class="collection-icon-title" data-animate>
+          <img class="collection-icon" draggable="false" src="{{ collection.icon.url }}" alt="{{ collection.title }}">
+          <a class="collection-link" href="/collections/{{ collection.slug }}">/ {{ collection.title }}</a>
+        </div>
+        <p class="collection-description" data-animate>{{ collection.description }}</p>
+      </div>
+
+      <div class="product-card-list">
+        {% for product in collection.products.all|slice:"6" %}
+          <div class="product-card" data-id="{{ product.id }}" data-animate>
+            <div class="product-image-container">
+              <img class="product-image" loading="lazy" src="{{ product.image_preview.url }}" alt="{{ product.title }}">
+              <button tabindex="0" class="product-card-button button button-light button-full">В корзину</button>
+            </div>
+
+            <a class="product-link" href="/products/{{ product.id }}">{{ product.title }}</a>
+            <span class="product-description truncate">{{ product.description }}</span>
+            <span class="product-price">{{ product.price }} ₽</span>
+          </div>
+        {% endfor %}
+
+        {% if collection.products.all|length > 6 %}
+          <div class="product-card" data-animate>
+            <a class="view-mode-card" href="/collections/{{ collection.id }}">
+              Посмотреть все
+            </a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+{% endblock %}

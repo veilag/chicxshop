@@ -1,0 +1,10 @@
+/.env
+/venv/
+/.venv/
+/migrations/
+media/
+
+*.sqlite3
+**/migrations/**
+!**/migrations
+!**/migrations/__init__.py

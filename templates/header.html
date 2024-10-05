@@ -1,0 +1,49 @@
+<header class="header">
+  <div class="header-logo">
+    <a class="header-logo-link" data-outlink href="/">CHICX</a>
+  </div>
+
+  <nav class="header-nav">
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/' %} active {% endif %}" draggable="false" href="/">
+          Главная
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/store' %} active {% endif %}" draggable="false" href="/store">
+          Магазин
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if request.path == '/catalog' %} active {% endif %}" draggable="false" href="/catalog">
+          Каталог
+        </a>
+      </li>
+
+      <li class="nav-item mobile-only">
+        <button class="cart-button nav-link">Корзина</button>
+      </li>
+      {% if not request.user.is_authenticated %}
+        <li class="nav-item mobile-only">
+          <button class="auth-button nav-link">Войти</button>
+        </li>
+      {% else %}
+        <li class="nav-item mobile-only">
+          <button class="nav-link">Мои заказы</button>
+        </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div class="header-actions">
+    <button class="cart-button desktop button">Корзина</button>
+
+    {% if request.user.is_authenticated %}
+      <button class="button">Мои заказы</button>
+      <a class="button" href="/logout">Выйти</a>
+    {% else %}
+      <button class="auth-button button">Войти</button>
+    {% endif %}
+  </div>
+</header>

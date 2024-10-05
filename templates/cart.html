@@ -1,0 +1,23 @@
+<div class="cart-overlay hidden">
+  <div class="cart-container">
+    <div class="cart-header">
+      <div class="cart-header-content">
+        <div class="cart-header-actions">
+          <button class="cart-close-button button button-light"><span></span><span></span></button>
+          <button class="cart-clear-button button button-light">Очистить</button>
+        </div>
+        <h3 class="cart-title">Корзина</h3>
+      </div>
+    </div>
+
+    <div class="cart-list"></div>
+
+    <div class="cart-footer">
+      {% if request.user.is_authenticated %}
+        <button class="checkout-button button button-light button-full">Оформить заказ</button>
+      {% else %}
+        <button class="login-checkout-button button button-light button-full">Войти и оформить заказ</button>
+      {% endif %}
+    </div>
+  </div>
+</div>
